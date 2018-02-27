@@ -1,11 +1,13 @@
 ---
 applications:
 - name: fortune-service
-  random-route: true
-  path: ./target/fortune-service-0.0.1-SNAPSHOT.jar
+  timeout: 120
   services:
+  - fortune-db
   - config-server
   - cloud-bus
   - service-registry
   - circuit-breaker-dashboard
-  - fortune-db
+  env:
+    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+    TRUST_CERTS: api.run.pivotal.io
